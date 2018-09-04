@@ -1,5 +1,8 @@
 package com.robert.dbsplit.core;
 
+/**
+ * 分表的策略
+ */
 public interface SplitStrategy {
     /**
      * 获取节点编号

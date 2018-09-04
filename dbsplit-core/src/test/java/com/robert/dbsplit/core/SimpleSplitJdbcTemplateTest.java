@@ -1,3 +1,4 @@
+/*
 package com.robert.dbsplit.core;
 
 import java.sql.ResultSet;
@@ -111,3 +112,4 @@ public class SimpleSplitJdbcTemplateTest extends
 		AssertJUnit.assertEquals(1, r);
 	}
 }
+*/

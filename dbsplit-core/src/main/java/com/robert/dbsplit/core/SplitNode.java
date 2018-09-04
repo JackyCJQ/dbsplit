@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 切分的节点，多个数据源多个JdbcTemplate
+ * 切分的节点，节点可能是负载均衡的，或者是读写分离的
  */
 public class SplitNode {
+    /**
+     * 这两个属性一般都是通过配置文件注入
+     */
+    //主节点的数据源配置
     private JdbcTemplate masterTemplate;
+    //可能会陪多个数据节点
     private List<JdbcTemplate> slaveTemplates;
 
     private AtomicLong iter = new AtomicLong(0);
@@ -53,7 +58,7 @@ public class SplitNode {
     }
 
     /**
-     * 通过取余的方式，来实现
+     * 负载均衡的从节点 加入了负载均衡
      *
      * @return
      */
@@ -63,7 +68,6 @@ public class SplitNode {
         // Still race condition, but it doesn't matter
         if (iterValue == Long.MAX_VALUE)
             iter.set(0);
-
         return slaveTemplates.get((int) iterValue % slaveTemplates.size());
     }
 
